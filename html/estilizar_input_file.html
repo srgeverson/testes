@@ -8,11 +8,11 @@
             font-family: Helvetica;
         }
 
-        input[type="file"] {
+        /* input[type="file"] {
             display: none;
-        }
+        } */
 
-        label {
+        .labal-desligar {
             padding: 20px 10px;
             width: 200px;
             background-color: #333;
@@ -23,14 +23,18 @@
             margin-top: 10px;
             cursor: pointer;
         }
+
+        .arquivo {
+            display: none;
+        }
     </style>
 
 <body>
     <h1>Envie o arquivo</h1>
     <form>
         <div>
-            <label for="arquivo">Desligar por Arquivos</label>
-            <input type="file" name="arquivo" id="arquivo">
+            <label class="labal-desligar" for="arquivo">Desligar por Arquivos</label>
+            <input type="file" class="arquivo" name="arquivo" id="arquivo">
         </div>
         <!-- <div>
             <button> Desligar por Arquivos</button>
