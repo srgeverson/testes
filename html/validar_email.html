@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Validando E-mail</title>
+    <script>
+        const validaEmail = () => {
+            const caracteresNaoAceitos = /[ <>!@#$%*(),'"{}+=˜`ç]/;
+            let email = document.getElementById('email').value;
+            let separaEmail = email.split('@');
+            let usuario = separaEmail[0];
+            let dominio = separaEmail[1];
+            let msg = document.getElementById('msg');
+
+            if (IsEmail(email))
+                msg.innerHTML = 'e-mail válido!';
+            else
+                msg.innerHTML = 'e-mail inválido!';
+
+            console.log(teste)
+        }
+
+        function IsEmail(email) {
+            // var exclude = /[^@-.w]|^[_@.-]|[._-]{2}|[@.]{2}|(@)[^@]*1/;
+            // var check = /@[w-]+./;
+            // var checkend = /.[a-zA-Z]{2,3}$/;
+            // if (((email.search(exclude) != -1) || (email.search(check)) == -1) || (email.search(checkend) == -1)) { return false; }
+            // else { return true; }
+        }
+
+        function teste(e) {
+            let numeroCaractere = String.fromCharCode(e.charCode);
+            const permitidos = '[0-9]';
+            if(!numeroCaractere.match(permitidos))
+            e.preventDefault();
+            console.log(e.keyCode);
+            console.log(numeroCaractere);
+            console.log(numeroCaractere.match(permitidos));
+        }
+
+    </script>
+</head>
+
+<body>
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        <div style="width: 500px; height: 50px;">
+            <input type="text" id="email" value="" onkeypress="teste(event);" />
+        </div>
+        <div style="width: 500px; height: 50px; background-color: rgb(208, 232, 149); margin: 20px;">
+            <label id="msg" title="msg">E-mail vazio!</span>
+        </div>
+    </div>
+</body>
+
+</html>
