@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Teste de Seleção</title>
+    <script>
+         ordenar = () => {
+                let texto1 = document.querySelector('#texto1').value;
+                let texto2 = document.querySelector('#texto2').value;
+                if (texto1 && texto2) {
+                    let todoTexto = texto1.split('').concat(texto2.split(''));
+                    let retorno = '';
+                    todoTexto.sort().forEach(element => retorno += element);
+                    msg.innerHTML = retorno;
+                }
+            }
+    </script>
+</head>
+
+<body>
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        <div style="width: 500px; height: 50px;">
+            <input type="text" id="texto1" value="zxvadg"/>
+            <input type="text" id="texto2" value="987132"/>
+            <input type="button" value="ordenar" onclick="ordenar();" />
+        </div>
+        <div style="width: 500px; height: 50px; background-color: rgb(208, 232, 149); margin: 20px;">
+            <label id="msg" title="msg">Resultado aqui</span>
+        </div>
+    </div>
+</body>
+
+</html>
