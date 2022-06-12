@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>TEste UPDATER</title>
+</head>
+
+<body>
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        <div>
+            <span id="descricao">Dados retornados do servidor!</span>
+        </div>
+        <div>
+            <textarea id="log" name="logs" rows="20" cols="100"></textarea>
+        </div>
+    </div>
+    <script>
+        var textarea = document.querySelector('#log');
+        var source = new EventSource('meu-updater.php');
+        if (typeof (EventSource) !== "undefined") {
+            console.log('Yes! Server-sent events support!');
+            source.addEventListener('message', function (e) {
+                let data = JSON.parse(e.data);
+                console.log(data);
+                textarea.value += 'Nome=' + data.usuario.nome + ' | ' + 'Sobre Nome=' + data.usuario.sobreNome + ' | ' + 'Data=' + data.usuario.data + ' | ';
+            }, false);
+
+            source.addEventListener('open', function (e) {
+                console.log('Open...');
+            }, false);
+
+            source.addEventListener('error', function (e) {
+                if (e.readyState == EventSource.CLOSED) {
+                    console.log('Close...');
+                }
+            }, false);
+        } else {
+            console.log('Sorry! No server-sent events support..')
+        }
+    </script>
+    <canvas id="myChart" width="400" height="400"></canvas>
+</body>
+
+</html>
