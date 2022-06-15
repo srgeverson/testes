@@ -1,4 +1,4 @@
-CREATE DEFINER=`root`@`localhost` FUNCTION `data_pascoa`(ano INT) RETURNS datetime
+CREATE DEFINER=`root`@`localhost` FUNCTION `fn_data_pascoa`(ano INT) RETURNS datetime
 BEGIN
 DECLARE seculo INT;
 DECLARE  G INT;
