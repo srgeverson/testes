@@ -1,6 +1,7 @@
+DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_feriados`(IN ano INT)
 BEGIN
-	DECLARE pascoa DATETIME DEFAULT (SELECT data_pascoa(ano));
+	DECLARE pascoa DATETIME DEFAULT (SELECT fn_data_pascoa(ano));
     DECLARE dia INT(2) DEFAULT DAY(pascoa);
     DECLARE mes INT(2) DEFAULT MONTH(pascoa);
     DECLARE anoPascoa INT(4) DEFAULT YEAR(pascoa);
@@ -33,4 +34,5 @@ BEGIN
         SELECT (pascoa - INTERVAL 48 DAY) AS Data, '2º feria Carnaval' AS Feriado
 	)
     SELECT * FROM tb_tmp_feriados;
-END
+END$$
+DELIMITER ;

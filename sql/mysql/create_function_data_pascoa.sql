@@ -1,3 +1,4 @@
+DELIMITER $$
 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_data_pascoa`(ano INT) RETURNS datetime
 BEGIN
 DECLARE seculo INT;
@@ -21,4 +22,5 @@ DECLARE pascoa DATE;
     SET DiaDePascoa = L + 28 - 31 * CAST(( MesDePascoa / 4 ) AS double);
     SET pascoa = convert(CONCAT(CAST(ano AS CHAR(4)), '-', CAST(MesDePascoa AS CHAR(2)), '-', CAST(DiaDePascoa AS CHAR(2))), DATE) ;
 RETURN pascoa;
-END
+END$$
+DELIMITER ;
