@@ -27,7 +27,7 @@ BEGIN
         UNION
         SELECT (pascoa + INTERVAL 60 DAY) AS Data, 'Corpus Christi' AS Feriado
         UNION
-        SELECT (pascoa + INTERVAL -2 DAY) AS Data, '6º feira Santa' AS Feriado
+        SELECT (pascoa - INTERVAL 2 DAY) AS Data, '6º feira Santa' AS Feriado
         UNION
         SELECT (pascoa - INTERVAL 47 DAY) AS Data, '3º feria Carnaval' AS Feriado
         UNION
