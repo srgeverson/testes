@@ -1,10 +1,10 @@
 namespace WindowsForms
 {
-    public partial class FormPrincipal : Form
+    public partial class frmTHread : Form
     {
         private int count = 0;
         private int max = 5000;
-        public FormPrincipal()
+        public frmTHread()
         {
             InitializeComponent();
         }
