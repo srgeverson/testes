@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using WindowsForms.domain.service;
 
 namespace WindowsForms
 {
@@ -19,7 +15,9 @@ namespace WindowsForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var teste = monthCalendar1.SelectionRange.Start.ToString();
+            //var teste = monthCalendar1.SelectionRange.Start.ToString();
+            var usuarioService = new UsuarioService();
+            dataGridView1.DataSource = usuarioService.GetUsuarios();
         }
     }
 }
