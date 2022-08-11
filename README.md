@@ -56,6 +56,13 @@ Este repositório foram de teste e estudos realizados.
 
 ```bash
 
+
+```
+
+* **Aplicação Windows Forms com C#**
+
+```bash
+
 ### Tela para trabalhar com THreads com o componente BackgrounWorker
 
 ### Tela para consultar data com NHibernate
@@ -66,14 +73,11 @@ $ SQL Data Client 4.8
 
 ```
 
-* **Aplicação Windows Forms com C#**
+* **WebServiceWCF - Serviço Web WFC com C#**
 
 ```bash
 
-
-
 ```
-
 
 ## 👨‍💻 Equipe de Desenvolvimento
 
