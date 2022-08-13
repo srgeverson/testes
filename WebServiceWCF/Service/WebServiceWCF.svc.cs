@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 using BCryptNet = BCrypt.Net.BCrypt;
@@ -62,13 +63,16 @@ namespace WebServiceWCF
                     .ToList()
                     .ConvertAll(x => x.Value)
                     .ToArray();
-
+                var utcNow = DateTimeOffset.UtcNow;
                 var extraHeaders = new Dictionary<string, object> { };
                 var payload = new Dictionary<string, object> {
-                    { "usuario", usuarioLogin.login },
+                    { "sub", usuario.Id }, //(subject) = Entidade à quem o token pertence, normalmente o ID do usuário;
+                    { "iss", Assembly.GetExecutingAssembly().GetName().Name }, //(issuer) = Emissor do token;
                     { "roles", permissoesId },
-                    { "iat", 0 },
-                    { "exp", DateTimeOffset.UtcNow.AddSeconds(Convert.ToDouble(EXPIRED)).ToUnixTimeSeconds()}
+                    { "name", usuario.Nome },
+                    { "iat", utcNow.ToUnixTimeSeconds() }, //(issued at) = Timestamp de quando o token foi criado;
+                    { "exp", utcNow.AddSeconds(Convert.ToDouble(EXPIRED)).ToUnixTimeSeconds()}, // (expiration) = Timestamp de quando o token irá expirar;
+                    { "aud", "AppGenérico" } //(audience) = Destinatário do token, representa a aplicação que irá usá-lo.
                 };
                 var key = Convert.FromBase64String(SECRET);
                 IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
