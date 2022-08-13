@@ -107,6 +107,15 @@ $ System.Runtime.CompilerServices.Unsafe 4.5.3
 
 ```
 
+* **AppClassLibraryDomain - Biblioteca de classes para projetos C#**
+
+```bash
+
+### Fornece o provedor de dados para SQL Server
+$ SQL Data Client 4.8
+
+```
+
 ## 👨‍💻 Equipe de Desenvolvimento
 
 * **Geverson Souza** - [Geverson Souza](https://www.linkedin.com/in/srgeverson/)
