@@ -57,7 +57,11 @@ namespace WebServiceWCF
                 if (string.IsNullOrEmpty(SECRET)) throw new Exception("Não foi encontrado a chave secreta de validação do token.");
                 if (string.IsNullOrEmpty(EXPIRED)) throw new Exception("Não foi definido tempo de validação do token.");
 
-                var permissoesId = permissaoService.PermissoesPorEmail(usuarioLogin.login).Select(permissao => permissao.Id).ToList();
+                int[] permissoesId = permissaoService.PermissoesPorEmail(usuarioLogin.login)
+                    .Select(permissao => permissao.Id)
+                    .ToList()
+                    .ConvertAll(x => x.Value)
+                    .ToArray();
 
                 var extraHeaders = new Dictionary<string, object> { };
                 var payload = new Dictionary<string, object> {
@@ -148,7 +152,7 @@ namespace WebServiceWCF
                 var extraHeaders = new Dictionary<string, object> { };
                 var payload = new Dictionary<string, object> {
                     { "usuario", usuarioLogin.login },
-                    { "roles", new int[] { } },
+                    { "roles", new int[] { 1,2,3,4,5,6} },
                     { "iat", 0 },
                     { "exp", DateTimeOffset.UtcNow.AddSeconds(Convert.ToDouble(EXPIRED)).ToUnixTimeSeconds()}
                 };
