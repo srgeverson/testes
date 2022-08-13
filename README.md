@@ -84,9 +84,26 @@ $ SQL Data Client 4.8
 
 ```bash
 
+### Gerador e validador de tokens
 $ JWT 9.0.3
 
+### Serializa e deserializa objetos JSON
 $ Newtonsoft.Json 13.0.1
+
+### Criptografa e valida senhas
+$ BCrypt.Net-Next 4.0.3
+
+### 
+$ System.Buffers 4.5.1
+
+### 
+$ System.Memory 4.5.4
+
+###
+$ System.Numerics.Vectors 4.5.0
+
+### 
+$ System.Runtime.CompilerServices.Unsafe 4.5.3
 
 ```
 

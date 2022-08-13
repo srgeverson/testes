@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Net;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace WebServiceWCF
 {
@@ -21,6 +22,9 @@ namespace WebServiceWCF
         {
             try
             {
+                string passwordHash = BCryptNet.HashPassword("Pa$$w0rd1");
+                bool verified = BCryptNet.Verify("Pa$$w0rd", passwordHash);
+
                 if (string.IsNullOrEmpty(SECRET)) throw new Exception("Não foi encontrado a chave secreta de validação do token.");
                 if (string.IsNullOrEmpty(EXPIRED)) throw new Exception("Não foi definido tempo de validação do token.");
 
