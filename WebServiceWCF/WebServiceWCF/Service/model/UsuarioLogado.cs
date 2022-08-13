@@ -9,4 +9,6 @@ public class UsuarioLogado
     public string Token { get; set; }
     [DataMember]
     public string Nome { get; set; }
+    [DataMember]
+    public string Mensagem { get; set; }
 }

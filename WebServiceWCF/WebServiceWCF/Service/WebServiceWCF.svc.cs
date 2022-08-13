@@ -5,12 +5,8 @@ using JWT.Serializers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Net;
-using System.Security.Cryptography;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
-using System.Text;
-using System.Web;
 
 namespace WebServiceWCF
 {
@@ -18,17 +14,21 @@ namespace WebServiceWCF
     public class WebServiceWCF : IWebServiceWCF
     {
         private static string SECRET = ConfigurationManager.AppSettings["secret"];
+        private static string EXPIRED = ConfigurationManager.AppSettings["expired"];
 
         public UsuarioLogado Autenticar(UsuarioLogin usuarioLogin)
         {
             try
             {
+                if (string.IsNullOrEmpty(SECRET)) throw new Exception("Não foi encontrado a chave secreta de validação do token.");
+                if (string.IsNullOrEmpty(EXPIRED)) throw new Exception("Não foi definido tempo de validação do token.");
+
                 var extraHeaders = new Dictionary<string, object> { };
                 var payload = new Dictionary<string, object> {
                     { "usuario", usuarioLogin.login },
                     { "roles", new int[] { } },
                     { "iat", 0 },
-                    { "exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds()}
+                    { "exp", DateTimeOffset.UtcNow.AddSeconds(Convert.ToDouble(EXPIRED)).ToUnixTimeSeconds()}
                 };
                 var key = Convert.FromBase64String(SECRET);
                 IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
@@ -37,20 +37,26 @@ namespace WebServiceWCF
                 IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
                 var token = encoder.Encode(extraHeaders, payload, key);
 
-                return new UsuarioLogado() { Nome = usuarioLogin.login, Token = token };
+                return new UsuarioLogado() { Nome = usuarioLogin.login, Token = token, Mensagem = "Usuário autorizado" };
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { return new UsuarioLogado() { Mensagem = ex.Message }; }
         }
 
         public TokenValidado Autorizar()
         {
             try
             {
+                string token = null;
                 IncomingWebRequestContext request = WebOperationContext.Current.IncomingRequest;
-                string token = request.Headers["Authorization"].Replace("Bearer ", "");
+                try
+                {
+                    token = request.Headers["Authorization"].ToString().Replace("Bearer", "").Trim();
+
+                    if (string.IsNullOrEmpty(token)) throw new Exception("Token não encontrado!");
+                }
+                catch (NullReferenceException) { throw new Exception("Não foi encotrado um tipo de autorização!"); }
+                catch (Exception ex) { throw ex; }
+
                 IJsonSerializer serializer = new JsonNetSerializer();
                 var provider = new UtcDateTimeProvider();
                 IJwtValidator validator = new JwtValidator(serializer, provider);
@@ -58,20 +64,15 @@ namespace WebServiceWCF
                 IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
                 IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
                 var key = Convert.FromBase64String(SECRET);
-                return new TokenValidado() { StatusCode = 200, Mensagem = decoder.Decode(token, key, verify: true) };
+                return new TokenValidado() { 
+                    StatusCode = 200,
+                    Mensagem = string.IsNullOrEmpty(decoder.Decode(token, key, verify: true)) ? string.Empty : "Token válido!"
+                };
             }
-            catch (TokenNotYetValidException tnyvex)
-            {
-                return new TokenValidado() { StatusCode = 401, Mensagem = tnyvex.Message };
-            }
-            catch (TokenExpiredException teex)
-            {
-                return new TokenValidado() { StatusCode = 401, Mensagem = teex.Message };
-            }
-            catch (SignatureVerificationException svex)
-            {
-                return new TokenValidado() { StatusCode = 401, Mensagem = svex.Message };
-            }
+            catch (TokenNotYetValidException tnyvex) { return new TokenValidado() { StatusCode = 401, Mensagem = tnyvex.Message }; }
+            catch (TokenExpiredException teex) { return new TokenValidado() { StatusCode = 401, Mensagem = teex.Message }; }
+            catch (SignatureVerificationException svex) { return new TokenValidado() { StatusCode = 401, Mensagem = svex.Message }; }
+            catch (Exception ex) { return new TokenValidado() { StatusCode = 401, Mensagem = ex.Message }; }
         }
 
         public string GerarMensagemDeBoasVindas(string nome)
