@@ -44,6 +44,34 @@ namespace AppClassLibraryDomain.DAO
             }
         }
 
+        internal List<Permissao> SelectByEmail(string email)
+        {
+            try
+            {
+                var permissaos = new List<Permissao>();
+                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                {
+                    sqlConnection.Open();
+                    var stringBuilder = new StringBuilder();
+                    stringBuilder.Append("SELECT p.* ");
+                    stringBuilder.Append("FROM permissoes AS p ");
+                    stringBuilder.Append("INNER JOIN usuarios_permissoes AS up ON (up.permissao_id = p.id) ");
+                    stringBuilder.Append("INNER JOIN usuarios AS u ON (u.id = up.usuario_id) ");
+                    stringBuilder.Append(string.Format("WHERE u.email = '{0}';", email));
+                    var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection);
+                    var sqlDataReader = sqlCommand.ExecuteReader();
+
+                    var resultSetToModel = new ResultSetToModel<Permissao>();
+                    permissaos = resultSetToModel.ToListModel(sqlDataReader);
+                }
+                return permissaos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
+            }
+        }
+
         internal List<Permissao> Select()
         {
             try

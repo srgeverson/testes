@@ -147,6 +147,30 @@ namespace AppClassLibraryDomain.DAO
                 throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
             }
         }
+        public Usuario SelectPorEmail(string email)
+        {
+            try
+            {
+                Usuario usuario = null;
+                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                {
+                    sqlConnection.Open();
+                    using (var sqlCommand = new SqlCommand("SELECT * FROM usuarios AS u WHERE u.email = @email;", sqlConnection))
+                    {
+                        sqlCommand.Parameters.AddWithValue("@email", email);
+
+                        var sqlDataReader = sqlCommand.ExecuteReader();
+                        var resultSetToModel = new ResultSetToModel<Usuario>();
+                        usuario = resultSetToModel.ToModel(sqlDataReader, true);
+                    }
+                }
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
+            }
+        }
 
         public bool Update(Usuario usuario)
         {

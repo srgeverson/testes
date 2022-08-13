@@ -1,5 +1,6 @@
 ﻿using AppClassLibraryDomain.DAO;
 using AppClassLibraryDomain.model;
+using System;
 using System.Collections.Generic;
 
 namespace AppClassLibraryDomain.service
@@ -25,6 +26,11 @@ namespace AppClassLibraryDomain.service
         public List<Permissao> Todos()
         {
             return permissaoDAO.Select();
+        }
+
+        public List<Permissao> PermissoesPorEmail(string email)
+        {
+            return permissaoDAO.SelectByEmail(email);
         }
     }
 }

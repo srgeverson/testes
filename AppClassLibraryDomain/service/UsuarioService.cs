@@ -37,6 +37,10 @@ namespace AppClassLibraryDomain.service
         {
             return usuarioDAO.SelectPorNome(nome);
         }
+        public Usuario BuscarPorEmail(string nome)
+        {
+            return usuarioDAO.SelectPorEmail(nome);
+        }
 
         public Usuario Cadastrar(Usuario usuario)
         {
