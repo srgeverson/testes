@@ -5,7 +5,11 @@ using JWT.Serializers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
+using System.Security.Cryptography;
 using System.ServiceModel.Activation;
+using System.ServiceModel.Web;
+using System.Text;
 using System.Web;
 
 namespace WebServiceWCF
@@ -24,7 +28,7 @@ namespace WebServiceWCF
                     { "usuario", usuarioLogin.login },
                     { "roles", new int[] { } },
                     { "iat", 0 },
-                    { "exp", 0}
+                    { "exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds()}
                 };
                 var key = Convert.FromBase64String(SECRET);
                 IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
@@ -41,28 +45,32 @@ namespace WebServiceWCF
             }
         }
 
-        public string Autorizar()
+        public TokenValidado Autorizar()
         {
-            const string token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGFpbTEiOjAsImNsYWltMiI6ImNsYWltMi12YWx1ZSJ9.8pwBI_HtXqI3UgQHQ_rDRnSQRxFL1SR8fbQoS-5kM5s";
-            const string secret = "GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk";
             try
             {
+                IncomingWebRequestContext request = WebOperationContext.Current.IncomingRequest;
+                string token = request.Headers["Authorization"].Replace("Bearer ", "");
                 IJsonSerializer serializer = new JsonNetSerializer();
                 var provider = new UtcDateTimeProvider();
                 IJwtValidator validator = new JwtValidator(serializer, provider);
                 IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
                 IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
                 IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
-
-                return decoder.Decode(token, secret, verify: true);
+                var key = Convert.FromBase64String(SECRET);
+                return new TokenValidado() { StatusCode = 200, Mensagem = decoder.Decode(token, key, verify: true) };
+            }
+            catch (TokenNotYetValidException tnyvex)
+            {
+                return new TokenValidado() { StatusCode = 401, Mensagem = tnyvex.Message };
             }
             catch (TokenExpiredException teex)
             {
-                throw teex;
+                return new TokenValidado() { StatusCode = 401, Mensagem = teex.Message };
             }
             catch (SignatureVerificationException svex)
             {
-               throw svex;
+                return new TokenValidado() { StatusCode = 401, Mensagem = svex.Message };
             }
         }
 

@@ -31,6 +31,6 @@ namespace WebServiceWCF
         ResponseFormat = WebMessageFormat.Json,
         BodyStyle = WebMessageBodyStyle.Bare,
         UriTemplate = "validar")]
-        string Autorizar();
+        TokenValidado Autorizar();
     }
 }
