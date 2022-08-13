@@ -11,15 +11,10 @@ using System.Web;
 namespace WebServiceWCF
 {
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
-    public class WebServiceWCF : IWebServiceWCF, IHttpHandler
+    public class WebServiceWCF : IWebServiceWCF
     {
         private static string SECRET = ConfigurationManager.AppSettings["secret"];
 
-        public bool IsReusable { get { return true; } }
-        public void ProcessRequest(HttpContext context)
-        {
-            Uri uri = context.Request.Url;
-        }
         public UsuarioLogado Autenticar(UsuarioLogin usuarioLogin)
         {
             try
