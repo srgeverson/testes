@@ -5,6 +5,7 @@ using JWT.Serializers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 
@@ -39,7 +40,10 @@ namespace WebServiceWCF
 
                 return new UsuarioLogado() { Nome = usuarioLogin.login, Token = token, Mensagem = "Usuário autorizado" };
             }
-            catch (Exception ex) { return new UsuarioLogado() { Mensagem = ex.Message }; }
+            catch (Exception ex) 
+            {
+                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = ex.Message }, HttpStatusCode.Unauthorized);
+            }
         }
 
         public TokenValidado Autorizar()
@@ -64,15 +68,28 @@ namespace WebServiceWCF
                 IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
                 IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
                 var key = Convert.FromBase64String(SECRET);
-                return new TokenValidado() { 
+                return new TokenValidado()
+                {
                     StatusCode = 200,
                     Mensagem = string.IsNullOrEmpty(decoder.Decode(token, key, verify: true)) ? string.Empty : "Token válido!"
                 };
             }
-            catch (TokenNotYetValidException tnyvex) { return new TokenValidado() { StatusCode = 401, Mensagem = tnyvex.Message }; }
-            catch (TokenExpiredException teex) { return new TokenValidado() { StatusCode = 401, Mensagem = teex.Message }; }
-            catch (SignatureVerificationException svex) { return new TokenValidado() { StatusCode = 401, Mensagem = svex.Message }; }
-            catch (Exception ex) { return new TokenValidado() { StatusCode = 401, Mensagem = ex.Message }; }
+            catch (TokenNotYetValidException tnyvex)
+            {
+                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = tnyvex.Message }, HttpStatusCode.Unauthorized);
+            }
+            catch (TokenExpiredException teex)
+            {
+                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = teex.Message }, HttpStatusCode.Unauthorized);
+            }
+            catch (SignatureVerificationException svex)
+            {
+                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = svex.Message }, HttpStatusCode.Unauthorized);
+            }
+            catch (Exception ex)
+            {
+                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = ex.Message }, HttpStatusCode.Unauthorized);
+            }
         }
 
         public string GerarMensagemDeBoasVindas(string nome)
