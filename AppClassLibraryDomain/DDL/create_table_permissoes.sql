@@ -9,5 +9,6 @@ CREATE TABLE permissoes
 	nome      VARCHAR(220) NOT NULL,
 	descricao     VARCHAR(220) NOT NULL,
 	ativo     TINYINT NOT NULL,
-	dataCriacao DATETIME NOT NULL
+	data_cadastro DATETIME NOT NULL,
+	data_operacao DATETIME NOT NULL,
 );

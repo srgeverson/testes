@@ -6,8 +6,12 @@
 CREATE TABLE usuarios
 (
 	id        INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
-	nome      VARCHAR(220) NOT NULL,
-	senha     VARCHAR(220) NOT NULL,
+	nome      VARCHAR(80),
+	email      VARCHAR(255) NOT NULL UNIQUE,
+	senha     VARCHAR(255) NOT NULL,
 	ativo     TINYINT NOT NULL,
-	dataCriacao DATETIME NOT NULL
+	codigo_acesso      VARCHAR(80),
+	data_cadastro DATETIME NOT NULL,
+	data_operacao DATETIME NOT NULL,
+	data_ultimo_acesso DATETIME,
 );

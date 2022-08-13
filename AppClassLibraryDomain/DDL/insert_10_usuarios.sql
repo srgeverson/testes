@@ -6,8 +6,10 @@
 --DESATIVAR IDENTITY TABELA
 SET IDENTITY_INSERT usuarios ON
 
-INSERT INTO usuarios (id, nome, senha, ativo, dataCriacao)
-VALUES (1, 'geverson', '123456', 1, GETDATE());
+INSERT INTO usuarios (id, nome, email, senha, ativo, codigo_acesso, data_cadastro, data_operacao, data_ultimo_acesso)
+VALUES
+(1, 'Admin', 'geversonjosedesouza@gmail.com', '$2a$12$quPz3Wq3lHyY/0gJeCAgceNEb42fUjiuNqyWoKFNci/Cr7PGvk.yO', 1, NULL, GETDATE(), GETDATE(), NULL),
+(2, 'Geverson', 'geversonjosedesouza@hotmail.com', '$2a$12$quPz3Wq3lHyY/0gJeCAgceNEb42fUjiuNqyWoKFNci/Cr7PGvk.yO', 1, NULL, GETDATE(), GETDATE(), NULL);
 
 --ATIVAR IDENTITY TABELA
 SET IDENTITY_INSERT usuarios OFF
@@ -16,24 +18,20 @@ DECLARE @count INT = 9;
 DECLARE @index INT = 0;
 WHILE @index < @count
 BEGIN
-    INSERT INTO usuarios
-      (
-        -- id -- this column value is auto-generated
-        nome,
-        senha,
-        ativo,
-        dataCriacao
-      )
-    VALUES
-      (
-        CAST('user' + CONVERT(VARCHAR(2), @index) AS VARCHAR(220)),
-        NEWID(),
-        CASE 
-             WHEN @index % 2 = 0 THEN 1
-             ELSE 0
-        END,
-        GETDATE() - @index
-      )
+    INSERT INTO usuarios (nome, email, senha, ativo, codigo_acesso, data_cadastro, data_operacao, data_ultimo_acesso)
+    VALUES (
+            NULL,
+            CAST(('user' + CONVERT(VARCHAR(2), @index) + '@email.com') AS VARCHAR(220)), 
+            '$2a$12$quPz3Wq3lHyY/0gJeCAgceNEb42fUjiuNqyWoKFNci/Cr7PGvk.yO', 
+            CASE 
+                WHEN @index % 2 = 0 THEN 1
+                ELSE 0
+            END, 
+            NULL,
+            GETDATE() - @index,
+            GETDATE() - @index,
+            NULL
+    )
     
     SET @index = @index + 1;
 END  
