@@ -1,4 +1,9 @@
-﻿using JWT;
+﻿using AppClassLibraryClient.mapper;
+using AppClassLibraryClient.model;
+using AppClassLibraryDomain.DAO;
+using AppClassLibraryDomain.model;
+using AppClassLibraryDomain.service;
+using JWT;
 using JWT.Algorithms;
 using JWT.Exceptions;
 using JWT.Serializers;
@@ -17,6 +22,11 @@ namespace WebServiceWCF
     {
         private static string SECRET = ConfigurationManager.AppSettings["secret"];
         private static string EXPIRED = ConfigurationManager.AppSettings["expired"];
+
+        public WebServiceWCF()
+        {
+            ConexaoDAO.URLCONEXAO = ConfigurationManager.AppSettings["connectionString"];
+        }
 
         public UsuarioLogado Autenticar(UsuarioLogin usuarioLogin)
         {
@@ -104,6 +114,13 @@ namespace WebServiceWCF
         public Pessoa NomeESobreNome(string nome, string sobreNome)
         {
             return new Pessoa() { Nome = nome, SobreNome = sobreNome };
+        }
+
+        public List<UsuarioResponse> ListarTodosUsuarios()
+        {
+            var usuarioService = new UsuarioService();
+            var usuarioMapper = new UsuarioMapper();
+            return usuarioMapper.ToListResponse(usuarioService.Todos());
         }
     }
 }

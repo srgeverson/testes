@@ -1,4 +1,6 @@
-﻿using System.ServiceModel;
+﻿using AppClassLibraryClient.model;
+using System.Collections.Generic;
+using System.ServiceModel;
 using System.ServiceModel.Web;
 
 namespace WebServiceWCF
@@ -32,5 +34,9 @@ namespace WebServiceWCF
         BodyStyle = WebMessageBodyStyle.Bare,
         UriTemplate = "validar")]
         TokenValidado Autorizar();
+
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "usuarios")]
+        List<UsuarioResponse> ListarTodosUsuarios();
     }
 }
