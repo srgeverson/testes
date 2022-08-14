@@ -11,33 +11,23 @@ namespace WebServiceWCF
     {
 
         [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "boas-vindas?nome={nome}")]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "boas-vindas?nome={nome}")]
         string GerarMensagemDeBoasVindas(string nome);
 
         [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "nome-sobre-nome?nome={nome}&sobreNome={sobreNome}")]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "nome-sobre-nome?nome={nome}&sobreNome={sobreNome}")]
         Pessoa NomeESobreNome(string nome, string sobreNome);
 
         [OperationContract]
-        [WebInvoke(
-            Method = "POST",
-            RequestFormat = WebMessageFormat.Json,
-            ResponseFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "login")]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "login")]
         UsuarioLogado Autenticar(UsuarioLogin usuarioLogin);
 
         [OperationContract]
-        [WebInvoke(
-        Method = "POST",
-        RequestFormat = WebMessageFormat.Json,
-        ResponseFormat = WebMessageFormat.Json,
-        BodyStyle = WebMessageBodyStyle.Bare,
-        UriTemplate = "validar")]
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "validar")]
         TokenValidado Autorizar();
 
         [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "usuarios")]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "usuarios")]
         List<UsuarioResponse> ListarTodosUsuarios();
     }
 }
