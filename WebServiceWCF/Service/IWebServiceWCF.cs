@@ -6,6 +6,7 @@ using System.ServiceModel.Web;
 namespace WebServiceWCF
 {
     [ServiceContract]
+    [CustContractBehavior]
     public interface IWebServiceWCF
     {
 

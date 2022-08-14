@@ -10,20 +10,16 @@ using JWT.Serializers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
-using BCryptNet = BCrypt.Net.BCrypt;
+using WebServiceWCF.Service;
 
 namespace WebServiceWCF
 {
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class WebServiceWCF : IWebServiceWCF
     {
-        private static string SECRET = ConfigurationManager.AppSettings["secret"];
-        private static string EXPIRED = ConfigurationManager.AppSettings["expired"];
         private UsuarioService usuarioService;
         private PermissaoService permissaoService;
         private UsuarioMapper usuarioMapper;
@@ -53,35 +49,8 @@ namespace WebServiceWCF
                 throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 404, Mensagem = "Não foi encontrado usuário vinculado ao e-mail informado!" }, HttpStatusCode.NotFound);
             try
             {
-                if (!BCryptNet.Verify(usuarioLogin.senha, usuario.Senha)) throw new Exception("Senha inválida!");
-                
-                if (string.IsNullOrEmpty(SECRET)) throw new Exception("Não foi encontrado a chave secreta de validação do token.");
-                if (string.IsNullOrEmpty(EXPIRED)) throw new Exception("Não foi definido tempo de validação do token.");
-
-                int[] permissoesId = permissaoService.PermissoesPorEmail(usuarioLogin.login)
-                    .Select(permissao => permissao.Id)
-                    .ToList()
-                    .ConvertAll(x => x.Value)
-                    .ToArray();
-                var utcNow = DateTimeOffset.UtcNow;
-                var extraHeaders = new Dictionary<string, object> { };
-                var payload = new Dictionary<string, object> {
-                    { "sub", usuario.Id }, //(subject) = Entidade à quem o token pertence, normalmente o ID do usuário;
-                    { "iss", Assembly.GetExecutingAssembly().GetName().Name }, //(issuer) = Emissor do token;
-                    { "roles", permissoesId },
-                    { "name", usuario.Nome },
-                    { "iat", utcNow.ToUnixTimeSeconds() }, //(issued at) = Timestamp de quando o token foi criado;
-                    { "exp", utcNow.AddSeconds(Convert.ToDouble(EXPIRED)).ToUnixTimeSeconds()}, // (expiration) = Timestamp de quando o token irá expirar;
-                    { "aud", "AppGenérico" } //(audience) = Destinatário do token, representa a aplicação que irá usá-lo.
-                };
-                var key = Convert.FromBase64String(SECRET);
-                IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
-                IJsonSerializer serializer = new JsonNetSerializer();
-                IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
-                IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
-                var token = encoder.Encode(extraHeaders, payload, key);
-
-                return new UsuarioLogado() { Nome = usuarioLogin.login, Token = token, Mensagem = "Usuário autorizado" };
+                var authorizationWCF = new AuthorizationWCF();
+                return authorizationWCF.gerarToken(usuario, usuarioLogin, permissaoService);
             }
             catch (Exception ex)
             {
@@ -93,29 +62,8 @@ namespace WebServiceWCF
         {
             try
             {
-                string token = null;
-                IncomingWebRequestContext request = WebOperationContext.Current.IncomingRequest;
-                try
-                {
-                    token = request.Headers["Authorization"].ToString().Replace("Bearer", "").Trim();
-
-                    if (string.IsNullOrEmpty(token)) throw new Exception("Token não encontrado!");
-                }
-                catch (NullReferenceException) { throw new Exception("Não foi encotrado um tipo de autorização!"); }
-                catch (Exception ex) { throw ex; }
-
-                IJsonSerializer serializer = new JsonNetSerializer();
-                var provider = new UtcDateTimeProvider();
-                IJwtValidator validator = new JwtValidator(serializer, provider);
-                IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
-                IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
-                IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
-                var key = Convert.FromBase64String(SECRET);
-                return new TokenValidado()
-                {
-                    StatusCode = 200,
-                    Mensagem = string.IsNullOrEmpty(decoder.Decode(token, key, verify: true)) ? string.Empty : "Token válido!"
-                };
+                var authorizationWCF = new AuthorizationWCF();
+                return authorizationWCF.validarToken(WebOperationContext.Current.IncomingRequest);
             }
             catch (TokenNotYetValidException tnyvex)
             {
@@ -134,45 +82,12 @@ namespace WebServiceWCF
                 throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = ex.Message }, HttpStatusCode.Unauthorized);
             }
         }
-        
+
         public UsuarioLogado Cadastrar(UsuarioLogin usuarioLogin)
         {
-            if (string.IsNullOrEmpty(usuarioLogin.login) || string.IsNullOrEmpty(usuarioLogin.senha))
-                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 400, Mensagem = "E-mail ou senha não informado!" }, HttpStatusCode.BadRequest);
-
-            var usuario = usuarioService.BuscarPorEmail(usuarioLogin.login);
-            if (usuario == null)
-                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 404, Mensagem = "Não foi encontrado usuário vinculado ao e-mail informado!" }, HttpStatusCode.NotFound);
-            try
-            {
-                if (!BCryptNet.Verify(usuarioLogin.senha, usuario.Senha)) throw new Exception("Senha inválida!");
-
-                //string passwordHash = BCryptNet.HashPassword("Pa$$w0rd1");
-                //bool verified = BCryptNet.Verify("Pa$$w0rd", passwordHash);
-
-                if (string.IsNullOrEmpty(SECRET)) throw new Exception("Não foi encontrado a chave secreta de validação do token.");
-                if (string.IsNullOrEmpty(EXPIRED)) throw new Exception("Não foi definido tempo de validação do token.");
-
-                var extraHeaders = new Dictionary<string, object> { };
-                var payload = new Dictionary<string, object> {
-                    { "usuario", usuarioLogin.login },
-                    { "roles", new int[] { 1,2,3,4,5,6} },
-                    { "iat", 0 },
-                    { "exp", DateTimeOffset.UtcNow.AddSeconds(Convert.ToDouble(EXPIRED)).ToUnixTimeSeconds()}
-                };
-                var key = Convert.FromBase64String(SECRET);
-                IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
-                IJsonSerializer serializer = new JsonNetSerializer();
-                IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
-                IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
-                var token = encoder.Encode(extraHeaders, payload, key);
-
-                return new UsuarioLogado() { Nome = usuarioLogin.login, Token = token, Mensagem = "Usuário autorizado" };
-            }
-            catch (Exception ex)
-            {
-                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = ex.Message }, HttpStatusCode.Unauthorized);
-            }
+            //string passwordHash = BCryptNet.HashPassword("Pa$$w0rd1");
+            //bool verified = BCryptNet.Verify("Pa$$w0rd", passwordHash);
+            return null;
         }
 
         public string GerarMensagemDeBoasVindas(string nome)
