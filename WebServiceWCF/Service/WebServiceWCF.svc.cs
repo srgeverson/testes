@@ -60,7 +60,7 @@ namespace WebServiceWCF
             if(usuarioRequest==null)
                 throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 400, Mensagem = "Dados inválidos!" }, HttpStatusCode.BadRequest);
             var usuario = usuarioMapper.ToModel(usuarioRequest);
-            usuario.Senha = BCryptNet.HashPassword("usuarioRequest.Senha");
+            usuario.Senha = BCryptNet.HashPassword(usuarioRequest.Senha);
             var usuarioNovo = usuarioService.Cadastrar(usuario);
             var usuarioResponse = usuarioMapper.ToResponse(usuarioNovo);
             return usuarioResponse;
