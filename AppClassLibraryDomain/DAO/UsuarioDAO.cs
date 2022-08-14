@@ -73,6 +73,38 @@ namespace AppClassLibraryDomain.DAO
             }
         }
 
+        internal bool UpdateDataUltimoAcesso(int? id)
+        {
+            try
+            {
+                var usuarioAtualizado = false;
+
+                using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
+                {
+                    sqlConnection.Open();
+
+                    var stringBuilder = new StringBuilder();
+                    stringBuilder.Append("UPDATE usuarios ");
+                    stringBuilder.Append("SET ");
+                    stringBuilder.Append("data_ultimo_acesso = GETDATE() ");
+                    stringBuilder.Append("WHERE Id = @id ");
+                    using (var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection))
+                    {
+                        sqlCommand.Parameters.AddWithValue("@id",id);
+
+                        var sqlDataReader = sqlCommand.ExecuteReader();
+                        usuarioAtualizado = sqlDataReader.RecordsAffected > 0;
+                    }
+                }
+                return usuarioAtualizado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Ocorreu um erro em {0}. Detalhes: {1}", this.GetType().Name, ex.Message));
+            }
+
+        }
+
         public List<Usuario> Select()
         {
             try

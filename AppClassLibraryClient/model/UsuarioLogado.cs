@@ -3,7 +3,9 @@
 /// </summary>
 public class UsuarioLogado
 {
-    public string Token { get; set; }
-    public string Nome { get; set; }
+    public string access_token { get; set; }
+    public string token_type { get; set; }
+    public long expires_in { get; set; }
+    public string scope { get; set; }
     public string Mensagem { get; set; }
 }

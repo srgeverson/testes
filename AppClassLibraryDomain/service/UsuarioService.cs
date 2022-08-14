@@ -52,5 +52,10 @@ namespace AppClassLibraryDomain.service
         {
             return usuarioDAO.Select();
         }
+
+        public bool AlterarPorId(int? id)
+        {
+            return usuarioDAO.UpdateDataUltimoAcesso(id);
+        }
     }
 }
