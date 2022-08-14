@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Service\AuthorizationWCF.cs" />
     <Compile Include="Service\ClientMessageLogger.cs" />
+    <Compile Include="Service\CustAttributetBehavior.cs" />
     <Compile Include="Service\CustContractBehaviorAttribute.cs" />
     <Compile Include="Service\ServerMessageLogger.cs" />
     <Compile Include="Service\WebServiceWCF.svc.cs">

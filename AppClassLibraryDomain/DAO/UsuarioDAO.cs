@@ -50,11 +50,12 @@ namespace AppClassLibraryDomain.DAO
                     sqlConnection.Open();
 
                     var stringBuilder = new StringBuilder();
-                    stringBuilder.Append("INSERT INTO usuarios (Nome, Senha, Ativo) VALUES (@nome, @senha, @ativo);");
+                    stringBuilder.Append("INSERT INTO usuarios (nome, email, senha, ativo, data_cadastro, data_operacao) VALUES (@nome, @email, @senha, @ativo, GETDATE(), GETDATE());");
                     stringBuilder.Append("SELECT @@IDENTITY AS Id;");
 
                     var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection);
                     sqlCommand.Parameters.AddWithValue("@nome", usuario.Nome);
+                    sqlCommand.Parameters.AddWithValue("@email", usuario.Email);
                     sqlCommand.Parameters.AddWithValue("@senha", usuario.Senha);
                     sqlCommand.Parameters.AddWithValue("@ativo", usuario.Ativo);
 

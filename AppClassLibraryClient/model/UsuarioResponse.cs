@@ -5,7 +5,7 @@
         /// <summary>
         /// Identificador do usuário
         /// </summary>
-        /// <example>srgeverson</example>
+        /// <example>Geverson</example>
         public int Id { get; set; }
 
         /// <summary>
@@ -13,6 +13,12 @@
         /// </summary>
         /// <example>q1w2e3r4</example>
         public string Nome { get; set; }
+
+        /// <summary>
+        /// Nome de login do usuário
+        /// </summary>
+        /// <example>geverso@email.com</example>
+        public string Email { get; set; }
 
         /// <summary>
         /// Identifica se o usuário está ativo ou não

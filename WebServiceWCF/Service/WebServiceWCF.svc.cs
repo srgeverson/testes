@@ -8,6 +8,7 @@ using System.Net;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 using WebServiceWCF.Service;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace WebServiceWCF
 {
@@ -52,11 +53,17 @@ namespace WebServiceWCF
             return authorizationWCF.validarToken(WebOperationContext.Current.IncomingRequest);
         }
 
-        public UsuarioLogado Cadastrar(UsuarioLogin usuarioLogin)
+        public UsuarioResponse CadastrarUsuario(UsuarioRequest usuarioRequest)
         {
-            //string passwordHash = BCryptNet.HashPassword("Pa$$w0rd1");
+            //string passwordHash = ;
             //bool verified = BCryptNet.Verify("Pa$$w0rd", passwordHash);
-            return null;
+            if(usuarioRequest==null)
+                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 400, Mensagem = "Dados inválidos!" }, HttpStatusCode.BadRequest);
+            var usuario = usuarioMapper.ToModel(usuarioRequest);
+            usuario.Senha = BCryptNet.HashPassword("usuarioRequest.Senha");
+            var usuarioNovo = usuarioService.Cadastrar(usuario);
+            var usuarioResponse = usuarioMapper.ToResponse(usuarioNovo);
+            return usuarioResponse;
         }
 
         public string GerarMensagemDeBoasVindas(string nome)

@@ -1,4 +1,5 @@
-﻿using AppClassLibraryDomain.model;
+﻿using AppClassLibraryClient.model;
+using AppClassLibraryDomain.model;
 using AppClassLibraryDomain.service;
 using JWT;
 using JWT.Algorithms;
@@ -40,14 +41,15 @@ namespace WebServiceWCF.Service
                     .ToArray();
                 var utcNow = DateTimeOffset.UtcNow;
                 var extraHeaders = new Dictionary<string, object> { };
-                var payload = new Dictionary<string, object> {
-                    { "sub", usuario.Id }, //(subject) = Entidade à quem o token pertence, normalmente o ID do usuário;
-                    { "iss", Assembly.GetExecutingAssembly().GetName().Name }, //(issuer) = Emissor do token;
-                    { "roles", permissoesId },
-                    { "name", usuario.Nome },
-                    { "iat", utcNow.ToUnixTimeSeconds() }, //(issued at) = Timestamp de quando o token foi criado;
-                    { "exp", utcNow.AddSeconds(Convert.ToDouble(EXPIRED)).ToUnixTimeSeconds()}, // (expiration) = Timestamp de quando o token irá expirar;
-                    { "aud", "AppGenérico" } //(audience) = Destinatário do token, representa a aplicação que irá usá-lo.
+                var payload = new PayloadToken()
+                {
+                    sub = usuario.Id,
+                    iss = Assembly.GetExecutingAssembly().GetName().Name,
+                    roles = permissoesId,
+                    name = usuario.Nome,
+                    iat = utcNow.ToUnixTimeSeconds(),
+                    exp = utcNow.AddSeconds(Convert.ToDouble(EXPIRED)).ToUnixTimeSeconds(),
+                    aud = "AppGenérico"
                 };
                 var key = Convert.FromBase64String(SECRET);
                 IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
@@ -86,6 +88,41 @@ namespace WebServiceWCF.Service
                     StatusCode = 200,
                     Mensagem = string.IsNullOrEmpty(decoder.Decode(token, key, verify: true)) ? string.Empty : "Token válido!"
                 };
+            }
+            catch (TokenNotYetValidException tnyvex)
+            {
+                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = tnyvex.Message }, HttpStatusCode.Unauthorized);
+            }
+            catch (TokenExpiredException teex)
+            {
+                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = teex.Message }, HttpStatusCode.Unauthorized);
+            }
+            catch (SignatureVerificationException svex)
+            {
+                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = svex.Message }, HttpStatusCode.Unauthorized);
+            }
+            catch (Exception ex)
+            {
+                throw new WebFaultException<TokenValidado>(new TokenValidado() { StatusCode = 401, Mensagem = ex.Message }, HttpStatusCode.Unauthorized);
+            }
+        }
+
+        public PayloadToken validarAcesso(IncomingWebRequestContext request, int[] roles)
+        {
+            try
+            {
+                string token = ExtrairToken(request);
+
+                IJsonSerializer serializer = new JsonNetSerializer();
+                var provider = new UtcDateTimeProvider();
+                IJwtValidator validator = new JwtValidator(serializer, provider);
+                IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+                IJwtAlgorithm algorithm = new HMACSHA256Algorithm(); // symmetric
+                IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
+                var key = Convert.FromBase64String(SECRET);
+                var payloadToken = new JsonNetSerializer().Deserialize<PayloadToken>(decoder.Decode(token, key, verify: true));
+                
+                return payloadToken;
             }
             catch (TokenNotYetValidException tnyvex)
             {
