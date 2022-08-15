@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AppClassLibraryDomain.DAO;
+using AppClassLibraryDomain.DAO.NHibernate;
 using AppClassLibraryDomain.model;
 using BCryptNet = BCrypt.Net.BCrypt;
 
@@ -11,17 +12,21 @@ namespace AppClassLibraryDomain.service
     /// </summary>
     public class UsuarioService
     {
-
         private UsuarioDAO usuarioDAO;
+        private UsuarioNHibernateDAO usuarioNHibernateDAO;
 
         public UsuarioService()
         {
-            this.usuarioDAO = new UsuarioDAO();
+            if (usuarioDAO == null)
+                usuarioDAO = new UsuarioDAO();
+
+            if (usuarioNHibernateDAO == null)
+                usuarioNHibernateDAO = new UsuarioNHibernateDAO();
         }
 
         public IList<Usuario> GetUsuarios()
         {
-            return usuarioDAO.Select();
+            return usuarioNHibernateDAO.GetUsuarios();
         }
 
         public bool AlterarPorId(Usuario usuario, int id)

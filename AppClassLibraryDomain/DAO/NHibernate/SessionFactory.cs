@@ -1,6 +1,8 @@
-﻿using NHibernate;
+﻿using AppClassLibraryDomain.model;
+using NHibernate;
 using NHibernate.Cfg;
 using System;
+using System.Reflection;
 
 namespace AppClassLibraryDomain.DAO.NHibernate
 {
@@ -20,9 +22,11 @@ namespace AppClassLibraryDomain.DAO.NHibernate
                         if (sessionFactory == null)
                         {
                             var configuration = new Configuration();
-                            object value = configuration.Configure();
+                            configuration.Configure();
+                            //Alternativa para adicionar os assemblies
+                            //configuration.AddAssembly(typeof(Usuario).Assembly);
+                            configuration.AddAssembly(Assembly.GetCallingAssembly());
                             sessionFactory = configuration.BuildSessionFactory();
-                            //  configuration.AddAssembly(Assembly.GetCallingAssembly());
                         }
                     }
                 }
