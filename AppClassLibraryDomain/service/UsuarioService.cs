@@ -19,6 +19,11 @@ namespace AppClassLibraryDomain.service
             this.usuarioDAO = new UsuarioDAO();
         }
 
+        public IList<Usuario> GetUsuarios()
+        {
+            return usuarioDAO.Select();
+        }
+
         public bool AlterarPorId(Usuario usuario, int id)
         {
             usuario.Id = id;
