@@ -1,6 +1,4 @@
-﻿using NHibernate;
-using WindowsForms.domain.DAO.NHibernate;
-using WindowsForms.domain.model;
+﻿using AppClassLibraryDomain.DAO.NHibernate;
 
 namespace WindowsForms
 {
@@ -12,11 +10,11 @@ namespace WindowsForms
         {
             InitializeComponent();
             toolStripStatusLabel.Text = string.Format("Existe {0} telas abertas", childFormNumber);
-            using (ISession session = SessionFactory.OpenSession)
-            {
-                IQuery query = session.CreateQuery("FROM Usuario");
-                var teste= query.List<Usuario>();
-            }
+            //using (ISession session = SessionFactory.OpenSession)
+            //{
+            //    IQuery query = session.CreateQuery("FROM Usuario");
+            //    var teste= query.List<Usuario>();
+            //}
         }
 
         private void ShowNewForm(object sender, EventArgs e)

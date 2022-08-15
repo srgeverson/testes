@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using WindowsForms.domain.service;
+﻿using AppClassLibraryDomain.service;
 
 namespace WindowsForms
 {
@@ -15,9 +11,16 @@ namespace WindowsForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //var teste = monthCalendar1.SelectionRange.Start.ToString();
-            var usuarioService = new UsuarioService();
-            dataGridView1.DataSource = usuarioService.GetUsuarios();
+            try
+            {
+                //var teste = monthCalendar1.SelectionRange.Start.ToString();
+                var usuarioService = new UsuarioService();
+                dataGridView1.DataSource = usuarioService.GetUsuarios();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(String.Format("Erro ao listar usuários: ", ex.Message));
+            }
         }
     }
 }
