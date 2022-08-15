@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AppClassLibraryDomain.DAO;
 using AppClassLibraryDomain.model;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace AppClassLibraryDomain.service
 {
@@ -45,7 +46,13 @@ namespace AppClassLibraryDomain.service
         public Usuario Cadastrar(Usuario usuario)
         {
             usuario.Ativo = true;
+            usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
             return usuarioDAO.Insert(usuario);
+        }
+
+        public bool ValidarSenha(string senhaTexto, string senhaEncriptada)
+        {
+            return BCryptNet.Verify(senhaTexto, senhaEncriptada);
         }
 
         public List<Usuario> Todos()

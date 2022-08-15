@@ -7,9 +7,9 @@ namespace AppClassLibraryClient.model
         /// <summary>
         /// Nome de usuário para acessar a conta
         /// </summary>
-        /// <example>srgeverson</example>
+        /// <example>user0@email.com</example>
         [Required]
-        public string Nome { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Senha do usuário

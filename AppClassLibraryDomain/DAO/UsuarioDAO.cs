@@ -50,7 +50,8 @@ namespace AppClassLibraryDomain.DAO
                     sqlConnection.Open();
 
                     var stringBuilder = new StringBuilder();
-                    stringBuilder.Append("INSERT INTO usuarios (nome, email, senha, ativo, data_cadastro, data_operacao) VALUES (@nome, @email, @senha, @ativo, GETDATE(), GETDATE());");
+                    stringBuilder.Append("INSERT INTO usuarios (nome, email, senha, ativo, data_cadastro, data_operacao) ");
+                    stringBuilder.Append("VALUES (@nome, @email, @senha, @ativo, GETUTCDATE(), GETUTCDATE()); ");
                     stringBuilder.Append("SELECT @@IDENTITY AS Id;");
 
                     var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection);
@@ -188,7 +189,7 @@ namespace AppClassLibraryDomain.DAO
                 using (var sqlConnection = new SqlConnection(ConexaoDAO.URLCONEXAO))
                 {
                     sqlConnection.Open();
-                    using (var sqlCommand = new SqlCommand("SELECT * FROM usuarios AS u WHERE u.email = @email;", sqlConnection))
+                    using (var sqlCommand = new SqlCommand("SELECT u.* FROM usuarios AS u WHERE u.email = @email;", sqlConnection))
                     {
                         sqlCommand.Parameters.AddWithValue("@email", email);
 

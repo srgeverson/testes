@@ -27,8 +27,8 @@ namespace AppClassLibraryDomain.DAO
                     var stringBuilder = new StringBuilder();
                     stringBuilder.Append("SELECT p.* ");
                     stringBuilder.Append("FROM permissoes AS p ");
-                    stringBuilder.Append("INNER JOIN usuarios_permissoes AS up ON (up.permissaoId = p.id) ");
-                    stringBuilder.Append("INNER JOIN usuarios AS u ON (u.id = up.usuarioId) ");
+                    stringBuilder.Append("INNER JOIN usuarios_permissoes AS up ON (up.permissao_id = p.id) ");
+                    stringBuilder.Append("INNER JOIN usuarios AS u ON (u.id = up.usuario_id) ");
                     stringBuilder.Append(string.Format("WHERE u.nome = '{0}';", nomeUsuario));
                     var sqlCommand = new SqlCommand(stringBuilder.ToString(), sqlConnection);
                     var sqlDataReader = sqlCommand.ExecuteReader();
