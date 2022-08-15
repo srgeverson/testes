@@ -66,15 +66,13 @@ Este repositório foram de teste e estudos realizados.
 
 ```
 
-* **Aplicação Windows Forms com C#**
+* **WindowsForms - Aplicação Windows Forms com C#**
 
 ```bash
 
 ### Tela para trabalhar com THreads com o componente BackgrounWorker
 
 ### Tela para consultar data com NHibernate
-
-$ NHibenate 5.3
 
 $ SQL Data Client 4.8
 
