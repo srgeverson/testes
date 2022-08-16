@@ -35,6 +35,11 @@ namespace AppClassLibraryDomain.service
             return usuarioDAO.Update(usuario);
         }
 
+        public Usuario ApagarUsuarioNHibernate(Usuario usuario)
+        {
+            return usuarioNHibernateDAO.ApagarUsuario(usuario);
+        }
+
         public bool ApagarPorId(Int32 id)
         {
             return usuarioDAO.DeletePorId(id);
@@ -52,12 +57,27 @@ namespace AppClassLibraryDomain.service
         {
             return usuarioDAO.SelectPorEmail(nome);
         }
+        public Usuario BuscarPorIdNHibernate(Int64 id)
+        {
+            return usuarioNHibernateDAO.BuscarUsuarioPorId(id);
+        }
+
+        public Usuario BuscarPorEmailNHibernate(string email)
+        {
+            return usuarioNHibernateDAO.BuscarUsuarioPorEmail(email);
+        }
 
         public Usuario Cadastrar(Usuario usuario)
         {
             usuario.Ativo = true;
             usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
             return usuarioDAO.Insert(usuario);
+        }
+
+        public Usuario CadastrarNHibernate(Usuario usuario)
+        {
+            usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
+            return usuarioNHibernateDAO.CadastrarUsuario(usuario);
         }
 
         public bool ValidarSenha(string senhaTexto, string senhaEncriptada)
@@ -73,6 +93,12 @@ namespace AppClassLibraryDomain.service
         public bool AlterarPorId(int? id)
         {
             return usuarioDAO.UpdateDataUltimoAcesso(id);
+        }
+
+        public object AtualizarNHibernate(Usuario usuario)
+        {
+            usuario.Senha = BCryptNet.HashPassword(usuario.Senha);
+            return usuarioNHibernateDAO.AtualizarUsuario(usuario);
         }
     }
 }
