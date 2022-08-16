@@ -8,7 +8,7 @@
         /// <summary>
         /// (subject) = Entidade à quem o token pertence, normalmente o ID do usuário.
         /// </summary>
-        public int? sub { get; set; }
+        public long? sub { get; set; }
         /// <summary>
         /// (issuer) = Emissor do token.
         /// </summary>

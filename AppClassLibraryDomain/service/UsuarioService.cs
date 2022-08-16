@@ -29,7 +29,7 @@ namespace AppClassLibraryDomain.service
             return usuarioNHibernateDAO.GetUsuarios();
         }
 
-        public bool AlterarPorId(Usuario usuario, int id)
+        public bool AlterarPorId(Usuario usuario, long id)
         {
             usuario.Id = id;
             return usuarioDAO.Update(usuario);
