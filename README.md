@@ -96,22 +96,6 @@ $ AutoMapper 9.0.0
 
 ```
 
-* **AppClassLibraryClient - Biblioteca de classes cliente para projetos C#**
-
-```bash
-
-### Converte um Model para um DTO
-$ AutoMapper 9.0.0
-
-### Serializa e deserializa objetos JSON
-$ Newtonsoft.Json 13.0.1
-
-### Anotações dos atributos
-$ System.ComponentModel.Annotations 5.0.0
-
-
-```
-
 ## 👨‍💻 Equipe de Desenvolvimento
 
 * **Geverson Souza** - [Geverson Souza](https://www.linkedin.com/in/srgeverson/)
