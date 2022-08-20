@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="NHibernate" Version="5.3.12" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
@@ -23,6 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="frmCRUDEntityFramework.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmCRUDSQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

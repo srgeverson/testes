@@ -1,12 +1,13 @@
-﻿using AppClassLibraryDomain.model;
+﻿using AppClassLibraryDomain.DAO.EntityFramework;
+using AppClassLibraryDomain.model;
 using AppClassLibraryDomain.service;
 
 namespace WindowsForms
 {
-    public partial class frmConsultaNHibernate : Form
+    public partial class frmCRUDNHibernate : Form
     {
         private UsuarioService usuarioService;
-        public frmConsultaNHibernate()
+        public frmCRUDNHibernate()
         {
             InitializeComponent();
             if (usuarioService == null)
@@ -41,6 +42,9 @@ namespace WindowsForms
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+
+           
+
             if (criticas())
                 try
                 {
@@ -85,7 +89,7 @@ namespace WindowsForms
                         PreencheDadosUsuario(usuario);
                 }
                 else
-                    dgvUsuarios.DataSource = usuarioService.GetUsuarios();
+                    dgvUsuarios.DataSource = usuarioService.GetUsuariosEntity();
             }
             catch (Exception ex)
             {

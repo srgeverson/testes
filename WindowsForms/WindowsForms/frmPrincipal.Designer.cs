@@ -32,10 +32,12 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiThhead = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCRUDNHibernateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCRUDEntityFrameworkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCRUDSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fecharToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.consultaNHibernateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -56,7 +58,9 @@
             // 
             this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiThhead,
-            this.consultaNHibernateToolStripMenuItem});
+            this.tsmiCRUDNHibernateToolStripMenuItem,
+            this.tsmiCRUDEntityFrameworkToolStripMenuItem,
+            this.tsmiCRUDSQLToolStripMenuItem});
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
             this.fileMenu.Size = new System.Drawing.Size(59, 20);
@@ -68,9 +72,30 @@
             this.tsmiThhead.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsmiThhead.Name = "tsmiThhead";
             this.tsmiThhead.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.tsmiThhead.Size = new System.Drawing.Size(185, 22);
+            this.tsmiThhead.Size = new System.Drawing.Size(200, 22);
             this.tsmiThhead.Text = "THread";
             this.tsmiThhead.Click += new System.EventHandler(this.ShowNewForm);
+            // 
+            // tsmiCRUDNHibernateToolStripMenuItem
+            // 
+            this.tsmiCRUDNHibernateToolStripMenuItem.Name = "tsmiCRUDNHibernateToolStripMenuItem";
+            this.tsmiCRUDNHibernateToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.tsmiCRUDNHibernateToolStripMenuItem.Text = "CRUD NHibernate";
+            this.tsmiCRUDNHibernateToolStripMenuItem.Click += new System.EventHandler(this.consultaNHibernateToolStripMenuItem_Click);
+            // 
+            // tsmiCRUDEntityFrameworkToolStripMenuItem
+            // 
+            this.tsmiCRUDEntityFrameworkToolStripMenuItem.Name = "tsmiCRUDEntityFrameworkToolStripMenuItem";
+            this.tsmiCRUDEntityFrameworkToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.tsmiCRUDEntityFrameworkToolStripMenuItem.Text = "CRUD Entity Framework";
+            this.tsmiCRUDEntityFrameworkToolStripMenuItem.Click += new System.EventHandler(this.tsmiCRUDEntityFrameworkToolStripMenuItem_Click);
+            // 
+            // tsmiCRUDSQLToolStripMenuItem
+            // 
+            this.tsmiCRUDSQLToolStripMenuItem.Name = "tsmiCRUDSQLToolStripMenuItem";
+            this.tsmiCRUDSQLToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.tsmiCRUDSQLToolStripMenuItem.Text = "CRUD SQL";
+            this.tsmiCRUDSQLToolStripMenuItem.Click += new System.EventHandler(this.tsmiCRUDSQLToolStripMenuItem_Click);
             // 
             // fecharToolStripMenuItem
             // 
@@ -95,13 +120,6 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
-            // 
-            // consultaNHibernateToolStripMenuItem
-            // 
-            this.consultaNHibernateToolStripMenuItem.Name = "consultaNHibernateToolStripMenuItem";
-            this.consultaNHibernateToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.consultaNHibernateToolStripMenuItem.Text = "Consulta NHibernate";
-            this.consultaNHibernateToolStripMenuItem.Click += new System.EventHandler(this.consultaNHibernateToolStripMenuItem_Click);
             // 
             // frmPrincipal
             // 
@@ -133,7 +151,9 @@
         private System.Windows.Forms.ToolStripMenuItem fileMenu;
         private System.Windows.Forms.ToolStripMenuItem tsmiThhead;
         private ToolStripMenuItem fecharToolStripMenuItem;
-        private ToolStripMenuItem consultaNHibernateToolStripMenuItem;
+        private ToolStripMenuItem tsmiCRUDNHibernateToolStripMenuItem;
+        private ToolStripMenuItem tsmiCRUDEntityFrameworkToolStripMenuItem;
+        private ToolStripMenuItem tsmiCRUDSQLToolStripMenuItem;
     }
 }
 

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using AppClassLibraryDomain.DAO;
+using AppClassLibraryDomain.DAO.EntityFramework;
 using AppClassLibraryDomain.DAO.NHibernate;
+using AppClassLibraryDomain.DAO.NHibernate.EntityFramework;
 using AppClassLibraryDomain.model;
 using BCryptNet = BCrypt.Net.BCrypt;
+using ModelContex = AppClassLibraryDomain.model.EntityFramework;
+
 
 namespace AppClassLibraryDomain.service
 {
@@ -14,6 +18,7 @@ namespace AppClassLibraryDomain.service
     {
         private UsuarioDAO usuarioDAO;
         private UsuarioNHibernateDAO usuarioNHibernateDAO;
+        private UsuarioEntityFrameworkDAO usuarioEntityFrameworkDAO;
 
         public UsuarioService()
         {
@@ -22,11 +27,20 @@ namespace AppClassLibraryDomain.service
 
             if (usuarioNHibernateDAO == null)
                 usuarioNHibernateDAO = new UsuarioNHibernateDAO();
+
+            if (usuarioEntityFrameworkDAO == null)
+                usuarioEntityFrameworkDAO = new UsuarioEntityFrameworkDAO();
         }
 
         public IList<Usuario> GetUsuarios()
         {
+           
             return usuarioNHibernateDAO.GetUsuarios();
+        }
+
+        public IList<ModelContex.Usuario> GetUsuariosEntity()
+        {
+            return usuarioEntityFrameworkDAO.GetUsuarios();
         }
 
         public bool AlterarPorId(Usuario usuario, long id)

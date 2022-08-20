@@ -1,6 +1,6 @@
 ﻿namespace WindowsForms
 {
-    partial class frmConsultaNHibernate
+    partial class frmCRUDSQL
     {
         /// <summary>
         /// Required designer variable.
@@ -217,7 +217,7 @@
             this.btnApagar.UseVisualStyleBackColor = true;
             this.btnApagar.Click += new System.EventHandler(this.btnApagar_Click);
             // 
-            // frmConsultaNHibernate
+            // frmCRUDSQL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -241,9 +241,9 @@
             this.Controls.Add(this.monthCalendar1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnConsultar);
-            this.Name = "frmConsultaNHibernate";
+            this.Name = "frmCRUDSQL";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "frmConsultaNHibernate";
+            this.Text = "CRUD SQL";
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
