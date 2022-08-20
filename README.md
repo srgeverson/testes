@@ -96,30 +96,6 @@ $ AutoMapper 9.0.0
 
 ```
 
-* **AppClassLibraryDomain - Biblioteca de classes dominio para projetos C#**
-
-```bash
-
-### Fornece o provedor de dados para SQL Server
-$ SQL Data Client 4.8
-
-### Criptografa e valida senhas
-$ BCrypt.Net-Next 4.0.3
-
-### 
-$ System.Buffers 4.5.1
-
-### 
-$ System.Memory 4.5.4
-
-###
-$ System.Numerics.Vectors 4.5.0
-
-### 
-$ System.Runtime.CompilerServices.Unsafe 4.5.3
-
-```
-
 * **AppClassLibraryClient - Biblioteca de classes cliente para projetos C#**
 
 ```bash
