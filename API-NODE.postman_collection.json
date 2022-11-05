@@ -1,0 +1,1220 @@
+{
+	"info": {
+		"_postman_id": "0490b978-d8e4-4a8b-9388-a516bed1cef7",
+		"name": "API-NODE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11148955"
+	},
+	"item": [
+		{
+			"name": "Usuário",
+			"item": [
+				{
+					"name": "Perfil",
+					"item": [
+						{
+							"name": "Visualizar Perfil",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjkyMzg2OTljZTcyY2I0NDAzZDFlZiIsImlhdCI6MTYxNzUwMzM3NCwiZXhwIjoxNjE3NTg5Nzc0fQ.r1nPB-uPAsSpWtkKmDGqzCqfkU8FzKg0qIZS7SMc6hc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/usuarios/perfil",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"usuarios",
+										"perfil"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar Perfil",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjkyNTU4NjQyMDBjY2M3YTAyNTRiZCIsImlhdCI6MTYxNzUwNDk0MywiZXhwIjoxNjE3NTkxMzQzfQ.WwYfy5K8XfrEe3gtW0wwKA_xFnqd4FwoIbh0CWD4AMo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"geverson1\",\n\t\"email\":\"geverson1@gmail.com\",\n\t\"senha\": \"zxc123asd\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/usuarios/perfil",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"usuarios",
+										"perfil"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar Foto Perfil",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYTk5OTVlZjg1NzVmMjNmODk5YzA4ZiIsImlhdCI6MTYyMjMzODAwNywiZXhwIjoxNjIyNDI0NDA3fQ.oe5YqQggkHdPazD3vW8UvLdM0q6xojM6yQOuPmEh4co",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "foto",
+											"type": "file",
+											"src": "/C:/Users/geverson/Desktop/WhatsApp Image 2021-05-24 at 13.00.01.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://192.168.0.101:8081/usuarios/perfil-imagem",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"0",
+										"101"
+									],
+									"port": "8081",
+									"path": [
+										"usuarios",
+										"perfil-imagem"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Login Usuários",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"geverson@gmail.com\",\n    \"senha\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/usuarios/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"usuarios",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Recuperar Senha",
+					"item": [
+						{
+							"name": "Recuperar Senha Usuários",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"teste1@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/usuarios/recuperar-senha",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"usuarios",
+										"recuperar-senha"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Nova Senha Usuários",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 3,\n    \"recuperarSenha\": \"89egv8sid7\",\n    \"senha\": \"aaaaaa\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/usuarios/nova-senha",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"usuarios",
+										"nova-senha"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Validação Recuperar Senha Usuários",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/usuarios/recuperar-senha/89egv8sid7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"usuarios",
+										"recuperar-senha",
+										"89egv8sid7"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Listar Usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIzMDM0MzY4LCJleHAiOjE2MjMxMjA3Njh9.tiBV7leco3-zr7f045lsOrc7Eury7HmMwfYZQILiZ0o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Visualizar Fotos Usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjkyNTU4NjQyMDBjY2M3YTAyNTRiZCIsImlhdCI6MTYxNzUwNDk0MywiZXhwIjoxNjE3NTkxMzQzfQ.WwYfy5K8XfrEe3gtW0wwKA_xFnqd4FwoIbh0CWD4AMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/usuarios/fotos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"usuarios",
+								"fotos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjkyMzg2OTljZTcyY2I0NDAzZDFlZiIsImlhdCI6MTYxODAxNDQ5OSwiZXhwIjoxNjE4MTAwODk5fQ.suOeUXMKX-TOTSW646Z11h86WJpDXaYmxTmdfShSU_0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/usuarios/6069238699ce72cb4403d1ef",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"usuarios",
+								"6069238699ce72cb4403d1ef"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisarar Usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjkyMzg2OTljZTcyY2I0NDAzZDFlZiIsImlhdCI6MTYxODAxNDQ5OSwiZXhwIjoxNjE4MTAwODk5fQ.suOeUXMKX-TOTSW646Z11h86WJpDXaYmxTmdfShSU_0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/usuarios/pesquisar?email=ivitechtecnologia@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"usuarios",
+								"pesquisar"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "ivitechtecnologia@gmail.com"
+								},
+								{
+									"key": "nome",
+									"value": "a",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover Usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjkyMzg2OTljZTcyY2I0NDAzZDFlZiIsImlhdCI6MTYxNzUwMzM3NCwiZXhwIjoxNjE3NTg5Nzc0fQ.r1nPB-uPAsSpWtkKmDGqzCqfkU8FzKg0qIZS7SMc6hc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/usuarios/60692ef1061422d8529b874d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"usuarios",
+								"60692ef1061422d8529b874d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjkyMzg2OTljZTcyY2I0NDAzZDFlZiIsImlhdCI6MTYxNzUwMzM3NCwiZXhwIjoxNjE3NTg5Nzc0fQ.r1nPB-uPAsSpWtkKmDGqzCqfkU8FzKg0qIZS7SMc6hc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Geverson\",\n    \"email\": \"geverson@gmail.com\",\n    \"senha\": \"zxc123asd\",\n    \"ativo\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Conta Usuários",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"teste\",\n    \"email\": \"teste@gmail.com\",\n    \"senha\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/usuarios/criar-conta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"usuarios",
+								"criar-conta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIzMDE2OTUzLCJleHAiOjE2MjMxMDMzNTN9.faradTEZLB_h4jDCFHWQFsnf1IZzA9btYtzmnhGmz8M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"teste Atualizado\",\n    \"senha\": \"654321\",\n    \"email\": \"teste@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/usuarios/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"usuarios",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ativar Usuários",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjIzMDE2OTUzLCJleHAiOjE2MjMxMDMzNTN9.faradTEZLB_h4jDCFHWQFsnf1IZzA9btYtzmnhGmz8M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ativo\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/usuarios/ativar/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"usuarios",
+								"ativar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Funcionalidade",
+			"item": [
+				{
+					"name": "Funcionalidade Listar",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "Permissões",
+					"item": [
+						{
+							"name": "Ativar permissão por id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"nomae/apelido\",\r\n    \"email\": \"geverson@email.com\",\r\n    \"ativo\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/permissoes/ativa/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"permissoes",
+										"ativa",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Desativar permissão por id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"nomae/apelido\",\r\n    \"email\": \"geverson@email.com\",\r\n    \"ativo\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/permissoes/desativa/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"permissoes",
+										"desativa",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Todas Permissões",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/permissoes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"permissoes"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Usuários",
+					"item": [
+						{
+							"name": "Permissão",
+							"item": [
+								{
+									"name": "Buscar permissão por id usuário",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/v1/usuarios/1/permissoes",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"usuarios",
+												"1",
+												"permissoes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cadastar várias permissões ao usuário",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0LCJuYW1lIjoicGF1bGlzdGVuc2V0ZWNub2xvZ2lhIiwicm9sZXMiOltdLCJpYXQiOjE2NjAwODQ5MzksImV4cCI6MTY2MDA4ODUzOX0.rTMjtBSvHpDhV10fRkh15-vNJJZ7HxLhjucigbGKqio",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "[1,2,3,7]",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/v1/usuarios/1/permissoes",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"usuarios",
+												"1",
+												"permissoes"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Todos Usuários",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6InBhdWxpc3RlbnNldGVjbm9sb2dpYSIsInJvbGVzIjpbXSwiaWF0IjoxNjYxNzQyMTIzLCJleHAiOjE2NjE3NDU3MjN9.dYQwZv1IVXDa7Iv0NobmKPUgDDWH_7zKiiJfHMzIJdg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/usuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar usuário por id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/usuarios/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"usuarios",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar usuário com senha",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"apelido\",\r\n    \"email\": \"login1@gmail.com\",\r\n    \"senha\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/usuarios/com-senha",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"usuarios",
+										"com-senha"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar usuário por id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluIiwicm9sZXMiOlsibGlzdGFyX3Blcm1pc3NhbyIsImxpc3Rhcl91c3VhcmlvIiwiZWRpdGFyX3VzdWFyaW8iLCJjYWRhc3RyYXJfdXN1YXJpbyIsImV4Y2x1aXJfdXN1YXJpbyIsInByb3ByaW9fdXN1YXJpbyJdLCJpYXQiOjE2NjE4MTE1NzksImV4cCI6MTY2MTgxNTE3OX0.WEnsKu4mRDGPTSiIclnjY6IhzRRK-a620_IpdbsriZw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"nomae/apelido\",\r\n    \"email\": \"geversonjosedesouza@gmail.coma1\",\r\n    \"ativo\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API_NODE_LOCAL}}/v1/usuarios/id/4",
+									"host": [
+										"{{URL_API_NODE_LOCAL}}"
+									],
+									"path": [
+										"v1",
+										"usuarios",
+										"id",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar foto usuário",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "foto",
+											"type": "file",
+											"src": "/C:/Users/geverson/Pictures/acessar_fileserver_windows.PNG"
+										},
+										{
+											"key": "id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/usuarios/alterar-foto",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"usuarios",
+										"alterar-foto"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Ativar usuário por id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"nomae/apelido\",\r\n    \"email\": \"geverson@email.com\",\r\n    \"ativo\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/usuarios/ativa/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"usuarios",
+										"ativa",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Desativar usuário por id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"nomae/apelido\",\r\n    \"email\": \"geverson@email.com\",\r\n    \"ativo\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/usuarios/desativa/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"usuarios",
+										"desativa",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/v1/imagens/usuarios/91bd67a24f32827567619c3e1077dc9a.PNG",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/imagens/usuarios/91bd67a24f32827567619c3e1077dc9a.PNG",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"imagens",
+										"usuarios",
+										"91bd67a24f32827567619c3e1077dc9a.PNG"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "OAuth",
+			"item": [
+				{
+					"name": "Token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123321",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "api_node",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "paulistensetecnologia@zohomail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL_API_NODE_LOCAL}}/v1/usuarios/token",
+							"host": [
+								"{{URL_API_NODE_LOCAL}}"
+							],
+							"path": [
+								"v1",
+								"usuarios",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar acesso usuário",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123321",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "api_node",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"paulistensetecnologia@gmail.comasdasdsads\",\r\n    \"senha\": \"123456\",\r\n    \"codigoAcesso\": \"j48dic12d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API_NODE_LOCAL}}/v1/usuarios/validar-acesso",
+							"host": [
+								"{{URL_API_NODE_LOCAL}}"
+							],
+							"path": [
+								"v1",
+								"usuarios",
+								"validar-acesso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar acesso usuário",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123321",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "api_node",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"paulistensetecnologia@zohomail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API_NODE_LOCAL}}/v1/usuarios/recuperar-acesso",
+							"host": [
+								"{{URL_API_NODE_LOCAL}}"
+							],
+							"path": [
+								"v1",
+								"usuarios",
+								"recuperar-acesso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar usuário sem senha",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123321",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "api_node",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"paulistensetecnologia\",\r\n    \"email\": \"paulistensetecnologia@zohomail.com1asASAD\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API_NODE_LOCAL}}/v1/usuarios/sem-senha",
+							"host": [
+								"{{URL_API_NODE_LOCAL}}"
+							],
+							"path": [
+								"v1",
+								"usuarios",
+								"sem-senha"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API Docs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL_API_NODE_LOCAL}}/api-docs",
+					"host": [
+						"{{URL_API_NODE_LOCAL}}"
+					],
+					"path": [
+						"api-docs"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,6 +1,7 @@
 # Projetos Para testes Rápidos
 Este repositório foram de teste e estudos realizados.
 
+private string strConexao = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
 
 💡A chave secreta de validação do token é uma palavra encriptada pelo [MD5 Hash Generator](https://www.md5hashgenerator.com/).
 
@@ -35,14 +36,6 @@ Este repositório foram de teste e estudos realizados.
 ```
 
 * **Aplicação Web com PHP**
-
-```bash
-
-
-
-```
-
-* **Scripts SQLs**
 
 ```bash
 
