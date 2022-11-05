@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <Title>Select2 Teste</Title>
+    <link href="index.css" rel="stylesheet" />
+    <link href="css/select2.min.css" rel="stylesheet" />
+    <script src="js/jquery-3.6.1.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#select-dados-fixo').select2();
+            $('#select-dados-array').select2({
+                data: dados
+            });
+            $('#select-dados-ajax').select2({
+                ajax: {
+                    url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados',
+                    dataType: 'json',
+                    processResults: function (response) {
+                        let dadosTratados = response.map((item, index) => {
+                            return { id: item.sigla, text: item.nome };
+                        });
+                        // console.log(response);
+                        // console.log(dadosTratados);
+
+                        return { results: dadosTratados };
+                    }
+                }
+            });
+        });
+
+        const selecionaItem = (e) => $('#msg').text($(`#${e.id}`).val());
+
+        const marcarTodos = (e) => {
+            let checkbox = e.id;
+            let select = `#select-${checkbox.split('-')[1]}-${checkbox.split('-')[2]}`;
+            if ($(`#${checkbox}`).is(':checked')) 
+                $(`${select} > option`).prop("selected", "selected").trigger("change");
+            else 
+                $(select).val(null).trigger('change');
+
+            console.log($(`#${checkbox}`).is(':checked'))
+            console.log(select)
+        }
+
+        const dados = [
+            { id: 'AC', text: 'Acre' },
+            { id: 'AL', text: 'Alagoas' },
+            { id: 'AM', text: 'Amazonas' },
+            { id: 'AP', text: 'Amapá' },
+            { id: 'BA', text: 'Bahia' },
+            { id: 'CE', text: 'Ceará' },
+            { id: 'DF', text: 'Distrito Federal' },
+            { id: 'ES', text: 'Espírito Santo' },
+            { id: 'GO', text: 'Goiás' },
+            { id: 'MA', text: 'Maranhão' },
+            { id: 'MG', text: 'Minas Gerais' },
+            { id: 'MS', text: 'Mato Grosso do Sul' },
+            { id: 'MT', text: 'Mato Grosso' },
+            { id: 'PA', text: 'Pará' },
+            { id: 'PB', text: 'Paraíba' },
+            { id: 'PE', text: 'Pernambuco' },
+            { id: 'PI', text: 'Piauí' },
+            { id: 'PR', text: 'Paraná' },
+            { id: 'RJ', text: 'Rio de Janeiro' },
+            { id: 'RN', text: 'Rio Grande do Norte' },
+            { id: 'RO', text: 'Rondônia' },
+            { id: 'RR', text: 'Roraima' },
+            { id: 'RS', text: 'Rio Grande do Sul' },
+            { id: 'SC', text: 'Santa Catarina' },
+            { id: 'SE', text: 'Sergipe' },
+            { id: 'SP', text: 'São Paulo' },
+            { id: 'TO', text: 'Tocantins' }
+        ]
+
+        const limpar = () => {
+            $(`#checkbox-dados-fixo`).prop("checked", false).trigger('change');
+            $(`#checkbox-dados-array`).prop("checked", false).trigger('change');
+            $(`#checkbox-dados-ajax`).prop("checked", false).trigger('change');
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Select2</h1>
+    </header>
+    <main>
+        <div class="div-select">
+            <label for="select-dados-fixo">
+                Dados de Fixo
+                <select id="select-dados-fixo" onchange="selecionaItem(this);" multiple="multiple">
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="PR">Paraná</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+            </label>
+            <input type="checkbox" id="checkbox-dados-fixo" onchange="marcarTodos(this);" />
+            <label for="checkbox-dados-fixo">Marcar todos</label>
+        </div>
+        <div class="div-select">
+            <label for="select-dados-array">
+                Dados de Array
+                <select id="select-dados-array" onchange="selecionaItem(this);" multiple="multiple">
+                    <option value="AC">Acre</option>
+                </select>
+            </label>
+            <input type="checkbox" id="checkbox-dados-array" onchange="marcarTodos(this);" />
+            <label for="checkbox-dados-array">Marcar todos</label>
+        </div>
+        <div class="div-select">
+            <label for="select-dados-ajax">
+                Dados de ajax
+                <select id="select-dados-ajax" onchange="selecionaItem(this);" multiple="multiple">
+                </select>
+            </label>
+            <input type="checkbox" id="checkbox-dados-ajax" onchange="marcarTodos(this);" />
+            <label for="checkbox-dados-ajax">Marcar todos</label>
+        </div>
+        <div>
+            <input type="button" value="Limpar" onclick="limpar();" />
+        </div>
+        <div class="div-resultado">
+            <label id="msg" title="msg">Vazio!</label>
+        </div>
+    </main>
+    <footer>Todos direitos reservados</footer>
+</body>
+
+</html>
