@@ -51,14 +51,6 @@ private string strConexao = ConfigurationManager.ConnectionStrings["connectionSt
 
 ```
 
-
-* **Aplicação Web Forms com C#**
-
-```bash
-
-
-```
-
 ## 👨‍💻 Equipe de Desenvolvimento
 
 * **Geverson Souza** - [Geverson Souza](https://www.linkedin.com/in/srgeverson/)
